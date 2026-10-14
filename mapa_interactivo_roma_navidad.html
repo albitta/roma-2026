@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-900">
+<html lang="es" class="h-full bg-stone-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -45,6 +45,40 @@
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(45, 212, 191, 0.25);
         }
+    </style>
+
+    <style id="roma-light-theme">
+      :root { color-scheme: light; }
+      html, body { background: #f8f4ed !important; color: #314b46 !important; }
+      body { background-image: radial-gradient(ellipse at 15% 0%, #e8eee3 0%, transparent 44%), linear-gradient(180deg,#fffaf3,#f6efe5) !important; }
+      .glass-card { background: rgba(255,255,255,.94) !important; border: 1px solid #e6ddd0 !important; box-shadow: 0 5px 20px rgba(89,76,57,.07) !important; backdrop-filter: blur(8px); }
+      .glass-nav { background: rgba(255,250,243,.96) !important; border-bottom: 1px solid #e6ddd0 !important; box-shadow: 0 3px 16px rgba(89,76,57,.07) !important; }
+      .text-white, .text-slate-100 { color: #273e39 !important; }
+      .text-cyan-100\/90, .text-cyan-100\/80, .text-cyan-200\/80, .text-cyan-200, .text-teal-200 { color: #506960 !important; }
+      .text-cyan-300\/60, .text-cyan-200\/70 { color: #71877e !important; }
+      .text-pistachio-300, .text-rose-400 { color: #a65e45 !important; }
+      .bg-clip-text.text-transparent { background-image: linear-gradient(100deg,#a4513b,#6b8774) !important; }
+      .bg-teal-950\/70, .bg-teal-950\/80, .bg-teal-900\/60, .bg-teal-800\/60, .bg-teal-800\/80, .bg-teal-800\/90 { background: #f1eee5 !important; }
+      .bg-pistachio-400\/20, .bg-pistachio-400\/15 { background: #f9e8dc !important; }
+      .bg-gradient-to-r.from-pistachio-400, .day-tab[data-active="true"] { background: #b9684b !important; background-image: none !important; color: #fff !important; }
+      .bg-gradient-to-r.from-pistachio-400 *, .day-tab[data-active="true"] * { color: #fff !important; }
+      .day-tab { border: 1px solid #e5dacf !important; }
+      .day-tab[data-active="true"] { border-color: #b9684b !important; }
+      .border-teal-400\/20, .border-teal-400\/25, .border-teal-400\/30, .border-teal-400\/40, .border-teal-500\/30, .border-teal-500\/20, .border-pistachio-400\/30, .border-pistachio-400\/40, .border-cyan-500\/30 { border-color: #e5dacf !important; }
+      #viewItineraryBtn[data-active="true"], #viewFoodBtn[data-active="true"] { background:#dce7da !important; color:#345c4b !important; border:1px solid #a9c2ae !important; }
+      #viewItineraryBtn, #viewFoodBtn { color:#506960 !important; }
+      #dayBadge { background:#f8e8dc !important; color:#a4513b !important; border-color:#edcbb7 !important; }
+      #timelineContainer .font-mono { background:#f8e8dc !important; color:#a4513b !important; border-color:#edcbb7 !important; }
+      #recommendationsList a:hover { background:#fff8ef !important; }
+      #helpModal, #shareModal { background:rgba(47,61,55,.50) !important; }
+      button, a { -webkit-tap-highlight-color:transparent; }
+      button:focus-visible, a:focus-visible { outline:3px solid #b9684b; outline-offset:2px; }
+      .status-panel { background:#fffdf8; border:1px solid #e8ddcd; border-radius:18px; padding:16px; box-shadow:0 4px 16px #56482e0d; }
+      .status-panel h3 { font-weight:800; color:#365d4e; font-size:14px; margin-bottom:10px; }
+      .status-panel p { font-size:12px; line-height:1.7; color:#53695e; margin:5px 0; }
+      .status-ok { color:#3f795c; font-weight:800; }
+      .status-wait { color:#a65e45; font-weight:800; }
+      @media (min-width:640px) { main { max-width:650px !important; } header > div { max-width:650px !important; } }
     </style>
 </head>
 <body class="bg-gradient-to-b from-teal-950 via-teal-900 to-slate-950 text-slate-100 min-h-full flex flex-col antialiased selection:bg-pistachio-400 selection:text-teal-950 pb-20 sm:pb-0">
@@ -119,6 +153,14 @@
             </p>
         </div>
 
+        <section class="status-panel" aria-label="Reservas y pendientes">
+          <h3>🎟️ Reservas y pendientes</h3>
+          <p><span class="status-ok">✓ Confirmado:</span> free tour 22/12, 15:00 · Vaticano 23/12, 09:00.</p>
+          <p><span class="status-wait">◷ Por comprar:</span> Coliseo 24/12, objetivo 09:00. Venta prevista 24/11.</p>
+          <p><span class="status-wait">◷ Por cerrar:</span> menú, precio, hora y mesa de Nochebuena en el hotel.</p>
+          <p><span class="status-wait">◷ Comprobar:</span> restaurantes y All’Antico Vinaio abiertos el 25/12.</p>
+        </section>
+
         <!-- Vista Itinerario -->
         <div id="itineraryView" class="space-y-3">
             <div id="timelineContainer" class="space-y-3"></div>
@@ -144,12 +186,12 @@
                 <button onclick="closeHelpModal()" class="text-cyan-200 hover:text-white text-lg font-bold">&times;</button>
             </div>
             <p class="text-xs text-cyan-100/90 leading-relaxed">
-                Para guardar estos nuevos colores en tu GitHub:
+                Para actualizar esta versión de la guía en GitHub:
             </p>
             <ol class="text-xs text-cyan-100/90 space-y-2 list-decimal pl-4">
                 <li>Abre el archivo <code class="bg-teal-950/80 px-1.5 py-0.5 rounded text-pistachio-300 border border-teal-500/30">index.html</code> en tu repositorio de GitHub.</li>
-                <li>Haz clic en el icono del **lápiz (Edit)**.</li>
-                <li>Borra todo, pega este nuevo código y pulsa **Commit changes**.</li>
+                <li>Haz clic en el icono del lápiz (Edit).</li>
+                <li>Sustituye el contenido por el HTML descargado y pulsa Commit changes.</li>
             </ol>
             <button onclick="downloadCodeFile()" class="w-full py-2.5 bg-gradient-to-r from-pistachio-400 to-pistachio-300 hover:from-pistachio-300 hover:to-pistachio-400 text-teal-950 font-extrabold text-xs rounded-xl transition shadow-md shadow-pistachio-500/20">
                 📥 Descargar archivo index.html actualizado
@@ -208,15 +250,16 @@
                 title: "MIÉRCOLES 23 · Vaticano y Trastevere",
                 objective: "Objetivo: visitar el Vaticano con calma, comer pasta rápida y dedicar la tarde a pasear.",
                 steps: [
-                    { time: "07:15–08:10", title: "Despertar y Desayuno", desc: "Desayuno incluido en el Orazio Palace Hotel." },
+                    { time: "07:15–07:40", title: "Despertarse y prepararse", desc: "Prepararse sin prisas antes de bajar al desayuno." },
+                    { time: "07:40–08:10", title: "Desayuno tranquilo", desc: "Desayuno incluido en el Orazio Palace Hotel." },
                     { time: "08:15–08:45", title: "Punto de Encuentro Vaticano", desc: "Salida andando a Viale Giulio Cesare 229 (Cinema Giulio)." },
                     { time: "09:00–12:00", title: "Museos Vaticanos & Sixtina", desc: "Visita guiada reservada (2.5h - 3h)." },
                     { time: "12:00–13:30", title: "Basílica de San Pedro", desc: "Interior y plaza (ajustar horario según colas)." },
                     { time: "13:30–14:15", title: "Pastasciutta ♥", desc: "Pasta rápida para llevar junto al Vaticano (Via delle Grazie)." },
                     { time: "14:15–15:15", title: "Castel Sant'Angelo", desc: "Vista exterior y fotos en el Ponte Sant'Angelo." },
-                    { time: "15:15–17:30", title: "Centro Histórico", desc: "Piazza Navona, Panteón por fuera y paradas dulces." },
+                    { time: "15:15–17:30", title: "Centro Histórico", desc: "Piazza Navona, Panteón por fuera; GROM, Sant’Eustachio o Two Sizes ♥ opcionales." },
                     { time: "17:30–19:15", title: "Trastevere", desc: "Campo de' Fiori → Trastevere y Santa Maria in Trastevere." },
-                    { time: "19:15–20:45", title: "Cena en Trastevere", desc: "Tonnarello ♥ o Trattoria Da Enzo." },
+                    { time: "19:15–20:45", title: "Cena en Trastevere", desc: "Tonnarello ♥ o Trattoria Da Enzo, según apertura y colas." },
                     { time: "20:45–22:15", title: "Piazza Trilussa", desc: "Ambiente nocturno y regreso al hotel." }
                 ],
                 recs: [
@@ -232,23 +275,24 @@
                 title: "JUEVES 24 · Roma antigua y Nochebuena",
                 objective: "Objetivo: Coliseo, Foro y Palatino sin eternizarse, comida sentadas y atardecer en el Aventino.",
                 steps: [
-                    { time: "07:00–07:50", title: "Despertar y Desayuno", desc: "Desayuno en el Orazio Palace." },
+                    { time: "07:00–07:20", title: "Despertarse y prepararse", desc: "Prepararse sin prisas." },
+                    { time: "07:20–07:50", title: "Desayuno tranquilo", desc: "Desayuno en el Orazio Palace." },
                     { time: "08:00–08:45", title: "Metro a Colosseo", desc: "Lepanto → Termini (Metro A), cambio a B → Colosseo." },
-                    { time: "09:00–10:15", title: "COLISEO", desc: "Visita programada de la Roma antigua." },
+                    { time: "09:00–10:15", title: "COLISEO", desc: "Entrada aún pendiente de comprar; objetivo 09:00." },
                     { time: "10:15–10:30", title: "Arco de Constantino", desc: "Parada de fotos." },
                     { time: "10:30–12:30", title: "Foro Romano y Palatino", desc: "Visita arqueológica de unas 2 horas." },
-                    { time: "12:30–13:45", title: "Comida Sentadas", desc: "Pizzería Luzzi u Oppio Caffè según salida." },
+                    { time: "12:30–13:45", title: "Comida Sentadas", desc: "Pizzería Luzzi, Oppio Caffè o Grupo Di Rienzo, si abren el 24." },
                     { time: "13:45–14:40", title: "Piazza Venezia & Altare", desc: "Recorrido por monumentos exteriores." },
                     { time: "14:40–15:55", title: "Aventino & Cerradura", desc: "Vistas y mirador del Aventino." },
                     { time: "16:00–16:55", title: "Giardino degli Aranci", desc: "Atardecer panorámico sobre las 16:43." },
                     { time: "17:00–20:00", title: "Regreso y Ducha", desc: "Vuelta al hotel y preparación para la cena." },
-                    { time: "20:00 en adelante", title: "Cena de Nochebuena", desc: "Cena especial confirmada en el Orazio Palace Hotel." }
+                    { time: "20:00 en adelante", title: "Cena de Nochebuena", desc: "El hotel ofrece cena especial; pendientes menú, horario, precio y reserva de mesa." }
                 ],
                 recs: [
                     { name: "Pizzería Luzzi", type: "Comida", desc: "Via Celimontana · Auténtica y cercana al Coliseo.", query: "Pizzeria Luzzi Roma" },
                     { name: "Oppio Caffè", type: "Café / Vista", desc: "Frente al Coliseo · Buenas vistas para descansar.", query: "Oppio Caffe Roma" },
                     { name: "Trattoria Vecchia Roma", type: "Comida", desc: "Zona Esquilino/Monti · Alternativa para comer sentadas.", query: "Trattoria Vecchia Roma" },
-                    { name: "Orazio Palace Hotel", type: "Cena Nochebuena", desc: "En vuestro propio hotel · Reserva confirmada.", query: "Orazio Palace Hotel Roma" }
+                    { name: "Orazio Palace Hotel", type: "Cena Nochebuena", desc: "En vuestro propio hotel · Ofrecen cena; mesa pendiente de confirmar.", query: "Orazio Palace Hotel Roma" }
                 ]
             },
             friday: {
@@ -256,11 +300,13 @@
                 title: "VIERNES 25 · Pincio y bocatas para el vuelo",
                 objective: "Objetivo: mañana tranquila y llegada al aeropuerto con margen. Festivo 25.",
                 steps: [
-                    { time: "07:45–09:00", title: "Desayuno & Check-out", desc: "Dejar mochilas en consigna del Orazio Palace." },
+                    { time: "07:45–08:15", title: "Despertarse y preparar mochilas", desc: "Organizar equipaje para el vuelo." },
+                    { time: "08:15–09:00", title: "Último desayuno", desc: "Desayuno tranquilo en el hotel." },
+                    { time: "09:00–09:30", title: "Check-out", desc: "Dejar mochilas en recepción si ofrecen consigna." },
                     { time: "09:30–11:15", title: "Pincio & Villa Borghese", desc: "Piazza del Popolo y mirador del Pincio." },
                     { time: "11:15–12:00", title: "Via del Corso", desc: "Paseo final por la arteria principal." },
-                    { time: "12:00–12:45", title: "Comida Temprana", desc: "Osteria da Fortunata o Navona Notte si abren." },
-                    { time: "12:45–13:15", title: "Operación Bocata", desc: "Schiacciatas en All'Antico Vinaio o Forno di Trevi para el vuelo." },
+                    { time: "12:00–12:45", title: "Comida Temprana", desc: "Elegir restaurante abierto el 25; Fortunata o Navona Notte solo si confirman apertura y encajan." },
+                    { time: "12:45–13:15", title: "Operación Bocata", desc: "Intentar comprar schiacciatas en All'Antico Vinaio si abre el 25; plan B por confirmar." },
                     { time: "13:15–14:20", title: "Recoger Mochilas & Metro", desc: "Regreso al hotel y traslado en Metro a Termini." },
                     { time: "14:20–14:55", title: "Leonardo Express", desc: "Tren rápido hacia Fiumicino." },
                     { time: "15:00–17:15", title: "Aeropuerto y Vuelo", desc: "Llegada con margen. Vuelo a Madrid a las 17:15." }
@@ -274,6 +320,23 @@
             }
         };
 
+        const extraRecs = {
+            tuesday: [
+                { name: "Cantina e Cucina", type: "Cena alternativa", desc: "Zona Navona · Si termináis el paseo por allí.", query: "Cantina e Cucina Roma" },
+                { name: "Osteria da Fortunata ♥", type: "Cena alternativa", desc: "Pasta fresca · Según colas y ubicación.", query: "Osteria da Fortunata Roma" },
+                { name: "Piccolo Buco", type: "Cena alternativa", desc: "Pizza cerca de Trevi · Puede haber cola.", query: "Piccolo Buco Roma" }
+            ],
+            wednesday: [
+                { name: "GROM Piazza Navona", type: "Helado", desc: "Parada opcional en el centro.", query: "GROM Piazza Navona Roma" },
+                { name: "Trattoria Da Enzo", type: "Cena alternativa", desc: "Trastevere · Comprobar apertura y colas.", query: "Da Enzo al 29 Roma" }
+            ],
+            thursday: [
+                { name: "Gruppo Di Rienzo", type: "Comida alternativa", desc: "Zona Coliseo · Confirmar apertura el 24.", query: "Gruppo Di Rienzo Roma" }
+            ],
+            friday: []
+        };
+        Object.keys(extraRecs).forEach(day => itineraryData[day].recs.push(...extraRecs[day]));
+
         function switchDay(dayKey) {
             document.querySelectorAll('.day-tab').forEach(tab => {
                 if(tab.getAttribute('data-day') === dayKey) {
@@ -283,6 +346,7 @@
                 }
             });
 
+            document.querySelectorAll('.day-tab').forEach(t => t.dataset.active = (t.dataset.day === dayKey) ? 'true' : 'false');
             const data = itineraryData[dayKey];
             document.getElementById('dayBadge').innerText = data.badge;
             document.getElementById('dayTitle').innerText = data.title;
@@ -327,6 +391,8 @@
             const itinBtn = document.getElementById('viewItineraryBtn');
             const foodBtn = document.getElementById('viewFoodBtn');
 
+            itinBtn.dataset.active = view === 'itinerary' ? 'true' : 'false';
+            foodBtn.dataset.active = view === 'food' ? 'true' : 'false';
             if(view === 'itinerary') {
                 itinView.classList.remove('hidden');
                 foodView.classList.add('hidden');
@@ -342,6 +408,10 @@
 
         let qrGenerated = false;
         function openShareModal() {
+            if (window.location.protocol === 'file:') {
+                alert('Para compartir por QR o enlace, primero publica el HTML en GitHub Pages. Un archivo local no se puede abrir desde otro móvil.');
+                return;
+            }
             document.getElementById('shareModal').classList.remove('hidden');
             if (!qrGenerated) {
                 new QRCode(document.getElementById("qrcode"), {
@@ -369,6 +439,7 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         function copyCurrentLink() {
@@ -381,7 +452,7 @@
             alert("¡Enlace copiado al portapapeles!");
         }
 
-        window.onload = function() { switchDay('tuesday'); };
+        window.onload = function() { switchDay('tuesday'); switchView('itinerary'); };
     </script>
 </body>
 </html>
