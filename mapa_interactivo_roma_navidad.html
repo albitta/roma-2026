@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Roma Navidad 2026 · Guía Móvil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-full flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950 pb-16 sm:pb-0">
+
+    <!-- Header principal para móviles -->
+    <header class="bg-slate-800/95 backdrop-blur border-b border-slate-700/80 sticky top-0 z-40 shadow-lg">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30">
+                    🇮🇹
+                </div>
+                <div>
+                    <h1 class="text-base font-bold bg-gradient-to-r from-amber-400 to-rose-400 bg-clip-text text-transparent">
+                        Roma Navidad 2026
+                    </h1>
+                    <p class="text-[10px] text-slate-400 font-medium">Hotel Orazio Palace · 3 Viajeras</p>
+                </div>
+            </div>
+
+            <!-- Botón de Compartir / QR -->
+            <button onclick="openShareModal()" class="bg-slate-700 hover:bg-slate-600 active:scale-95 transition text-slate-200 p-2 rounded-xl border border-slate-600 flex items-center gap-1 text-xs font-semibold">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <span>Compartir</span>
+            </button>
+        </div>
+
+        <!-- Horizontal scroll tab bar -->
+        <div class="px-3 pb-3 pt-1 flex gap-2 overflow-x-auto no-scrollbar scroll-smooth" id="dayTabs">
+            <button onclick="switchDay('tuesday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md text-center" data-day="tuesday">
+                Martes 22
+            </button>
+            <button onclick="switchDay('wednesday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="wednesday">
+                Miércoles 23
+            </button>
+            <button onclick="switchDay('thursday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="thursday">
+                Jueves 24
+            </button>
+            <button onclick="switchDay('friday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="friday">
+                Viernes 25
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4">
+
+        <!-- Selector de Vista: Itinerario vs Opciones de Comida -->
+        <div class="bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 flex text-xs font-semibold">
+            <button id="viewItineraryBtn" onclick="switchView('itinerary')" class="flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition">
+                ⏱️ Itinerario y Ruta
+            </button>
+            <button id="viewFoodBtn" onclick="switchView('food')" class="flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition">
+                🍕 Dónde Comer y Helados
+            </button>
+        </div>
+
+        <!-- Card Resumen del Día -->
+        <div id="dayHeaderCard" class="bg-gradient-to-br from-slate-800 to-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-lg">
+            <div class="flex items-center justify-between mb-1">
+                <span id="dayBadge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 bg-amber-500/20 text-amber-400 rounded-full border border-amber-500/30">
+                    Llegada y Compras
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">2026</span>
+            </div>
+            <h2 id="dayTitle" class="text-lg font-extrabold text-white">MARTES 22 · Llegada, free tour y compras</h2>
+            <p id="dayObjective" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Objetivo: primera toma de contacto, comer sentadas temprano y tarde de compras sin correr.
+            </p>
+        </div>
+
+        <!-- Contenedor del Itinerario -->
+        <div id="itineraryView" class="space-y-3">
+            <div id="timelineContainer" class="space-y-3">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Contenedor de Comida y Recomendaciones de la Zona -->
+        <div id="foodView" class="hidden space-y-3">
+            <div class="bg-slate-800/60 border border-slate-700/70 rounded-2xl p-3.5 text-xs text-slate-300">
+                <span class="font-bold text-amber-400 block mb-1">💡 Consejos para comer:</span>
+                • Los sitios con <span class="text-rose-400 font-bold">♥</span> son vuestros favoritos.<br>
+                • Tocad sobre cualquiera de las recomendaciones para abrir directamente su ruta en Google Maps.
+            </div>
+
+            <div id="recommendationsList" class="space-y-3">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal para compartir / QR para el móvil -->
+    <div id="shareModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 max-w-xs w-full text-center space-y-4 shadow-2xl">
+            <h3 class="text-base font-bold text-white">¡Llévalo en tu móvil!</h3>
+            <p class="text-xs text-slate-300">Escanea este código QR con la cámara de cualquiera de los teléfonos para abrir el mapa:</p>
+            
+            <div class="bg-white p-3 rounded-xl inline-block mx-auto shadow-inner">
+                <div id="qrcode"></div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+                <button onclick="copyCurrentLink()" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition shadow">
+                    📋 Copiar Enlace Directo
+                </button>
+                <button onclick="closeShareModal()" class="w-full py-2 bg-slate-700 text-slate-300 font-medium text-xs rounded-xl hover:bg-slate-600 transition">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const itineraryData = {
+            tuesday: {
+                badge: "Llegada y Compras",
+                title: "MARTES 22 · Llegada, free tour y compras",
+                objective: "Objetivo: primera toma de contacto, comer sentadas temprano y tarde de compras sin correr.",
+                steps: [
+                    { time: "08:30", title: "Aterrizaje en Fiumicino", desc: "Salida estimada 09:00–09:20 según desembarque." },
+                    { time: "09:15–10:10", title: "Leonardo Express", desc: "Trayecto hacia Roma Termini (32 min de trayecto)." },
+                    { time: "10:00–10:45", title: "Metro a Prati & Hotel", desc: "Metro A Termini → Lepanto. Paseo al Hotel Orazio Palace para dejar mochilas." },
+                    { time: "10:45–11:30", title: "Café opcional en Prati", desc: "Opciones cercanas: Sciascia Caffè 1919 o Caffè Portofino si hay tiempo." },
+                    { time: "11:30–12:00", title: "Paseo a Piazza del Popolo", desc: "Caminata corta hacia la monumental plaza." },
+                    { time: "12:00–13:15", title: "Comida temprana", desc: "PizzaRé o All'Antico Vinaio cerca de la plaza." },
+                    { time: "13:15–14:40", title: "Piazza del Popolo & Basílica", desc: "Fotos y visita a Santa Maria del Popolo. Presentarse a las 14:40." },
+                    { time: "15:00–17:00", title: "FREE TOUR", desc: "Tour guiado a pie (reserva confirmada)." },
+                    { time: "17:00–19:15", title: "Via del Corso & KIKO", desc: "Tiendas, luces navideñas y personalización de labial en KIKO Milano (Via del Corso 484)." },
+                    { time: "19:15–19:45", title: "Fontana di Trevi", desc: "Visita nocturna iluminada si apetece pasar a verla." },
+                    { time: "20:00–21:30", title: "Cena y Dulce", desc: "Cena por la zona de Trevi / Navona y dulce opcional en Pompi Trevi." }
+                ],
+                recs: [
+                    { name: "PizzaRé", type: "Comida", desc: "Via di Ripetta 14 · Pizza tradicional para sentarse.", query: "PizzaRe Roma Via di Ripetta" },
+                    { name: "All'Antico Vinaio ♥", type: "Rápido / Bocatas", desc: "Via del Corso 510 · Famosas schiacciatas.", query: "All Antico Vinaio Roma Via del Corso" },
+                    { name: "Sciascia Caffè 1919", type: "Café Histórico", desc: "Prati · Ideal para el café matutino cerca del hotel.", query: "Sciascia Caffe 1919 Roma" },
+                    { name: "KIKO Milano", type: "Compras", desc: "Via del Corso 484 · Personalización de labial.", query: "KIKO Milano Via del Corso 484 Roma" },
+                    { name: "Pompi Trevi", type: "Tiramisú / Dulce", desc: "Cerca de Trevi · Para un capricho dulce nocturno.", query: "Pompi Tiramisu Trevi Roma" }
+                ]
+            },
+            wednesday: {
+                badge: "Vaticano y Trastevere",
+                title: "MIÉRCOLES 23 · Vaticano y Trastevere",
+                objective: "Objetivo: visitar el Vaticano con calma, comer pasta rápida y dedicar la tarde a pasear.",
+                steps: [
+                    { time: "07:15–08:10", title: "Despertar y Desayuno", desc: "Desayuno incluido en el Orazio Palace Hotel." },
+                    { time: "08:15–08:45", title: "Punto de Encuentro Vaticano", desc: "Salida andando a Viale Giulio Cesare 229 (Cinema Giulio)." },
+                    { time: "09:00–12:00", title: "Museos Vaticanos & Sixtina", desc: "Visita guiada reservada (2.5h - 3h)." },
+                    { time: "12:00–13:30", title: "Basílica de San Pedro", desc: "Interior y plaza (ajustar horario según colas)." },
+                    { time: "13:30–14:15", title: "Pastasciutta ♥", desc: "Pasta rápida para llevar junto al Vaticano (Via delle Grazie)." },
+                    { time: "14:15–15:15", title: "Castel Sant'Angelo", desc: "Vista exterior y fotos en el Ponte Sant'Angelo." },
+                    { time: "15:15–17:30", title: "Centro Histórico", desc: "Piazza Navona, Panteón por fuera y paradas dulces." },
+                    { time: "17:30–19:15", title: "Trastevere", desc: "Campo de' Fiori → Trastevere y Santa Maria in Trastevere." },
+                    { time: "19:15–20:45", title: "Cena en Trastevere", desc: "Tonnarello ♥ o Trattoria Da Enzo." },
+                    { time: "20:45–22:15", title: "Piazza Trilussa", desc: "Ambiente nocturno y regreso al hotel." }
+                ],
+                recs: [
+                    { name: "Pastasciutta ♥", type: "Pasta Rápida", desc: "Via delle Grazie · Excelente opción junto al Vaticano.", query: "Pastasciutta Via delle Grazie Roma" },
+                    { name: "Gelateria Cremilla", type: "Helado", desc: "Via di Porta Castello · Cerca del hotel y Vaticano.", query: "Gelateria Cremilla Roma" },
+                    { name: "Two Sizes ♥", type: "Tiramisú", desc: "Via del Governo Vecchio · Mini tiramisús de sabores.", query: "Two Sizes Tiramisu Roma" },
+                    { name: "Sant'Eustachio Caffè", type: "Café Mítico", desc: "Junto al Panteón · Café tradicional románico.", query: "Sant Eustachio Il Caffe Roma" },
+                    { name: "Tonnarello ♥", type: "Cena Trastevere", desc: "Via della Paglia · Primera opción de trattoria.", query: "Tonnarello Trastevere Roma" }
+                ]
+            },
+            thursday: {
+                badge: "Coliseo y Nochebuena",
+                title: "JUEVES 24 · Roma antigua y Nochebuena",
+                objective: "Objetivo: Coliseo, Foro y Palatino sin eternizarse, comida sentadas y atardecer en el Aventino.",
+                steps: [
+                    { time: "07:00–07:50", title: "Despertar y Desayuno", desc: "Desayuno en el Orazio Palace." },
+                    { time: "08:00–08:45", title: "Metro a Colosseo", desc: "Lepanto → Termini (Metro A), cambio a B → Colosseo." },
+                    { time: "09:00–10:15", title: "COLISEO", desc: "Visita programada de la Roma antigua." },
+                    { time: "10:15–10:30", title: "Arco de Constantino", desc: "Parada de fotos." },
+                    { time: "10:30–12:30", title: "Foro Romano y Palatino", desc: "Visita arqueológica de unas 2 horas." },
+                    { time: "12:30–13:45", title: "Comida Sentadas", desc: "Pizzería Luzzi u Oppio Caffè según salida." },
+                    { time: "13:45–14:40", title: "Piazza Venezia & Altare", desc: "Recorrido por monumentos exteriores." },
+                    { time: "14:40–15:55", title: "Aventino & Cerradura", desc: "Vistas y mirador del Aventino." },
+                    { time: "16:00–16:55", title: "Giardino degli Aranci", desc: "Atardecer panorámico sobre las 16:43." },
+                    { time: "17:00–20:00", title: "Regreso y Ducha", desc: "Vuelta al hotel y preparación para la cena." },
+                    { time: "20:00 en adelante", title: "Cena de Nochebuena", desc: "Cena especial confirmada en el Orazio Palace Hotel." }
+                ],
+                recs: [
+                    { name: "Pizzería Luzzi", type: "Comida", desc: "Via Celimontana · Auténtica y cercana al Coliseo.", query: "Pizzeria Luzzi Roma" },
+                    { name: "Oppio Caffè", type: "Café / Vista", desc: "Frente al Coliseo · Buenas vistas para descansar.", query: "Oppio Caffe Roma" },
+                    { name: "Trattoria Vecchia Roma", type: "Comida", desc: "Zona Esquilino/Monti · Alternativa para comer sentadas.", query: "Trattoria Vecchia Roma" },
+                    { name: "Orazio Palace Hotel", type: "Cena Nochebuena", desc: "En vuestro propio hotel · Reserva confirmada.", query: "Orazio Palace Hotel Roma" }
+                ]
+            },
+            friday: {
+                badge: "Pincio y Vuelo",
+                title: "VIERNES 25 · Pincio y bocatas para el vuelo",
+                objective: "Objetivo: mañana tranquila y llegada al aeropuerto con margen. Festivo 25.",
+                steps: [
+                    { time: "07:45–09:00", title: "Desayuno & Check-out", desc: "Dejar mochilas en consigna del Orazio Palace." },
+                    { time: "09:30–11:15", title: "Pincio & Villa Borghese", desc: "Piazza del Popolo y mirador del Pincio." },
+                    { time: "11:15–12:00", title: "Via del Corso", desc: "Paseo final por la arteria principal." },
+                    { time: "12:00–12:45", title: "Comida Temprana", desc: "Osteria da Fortunata o Navona Notte si abren." },
+                    { time: "12:45–13:15", title: "Operación Bocata", desc: "Schiacciatas en All'Antico Vinaio o Forno di Trevi para el vuelo." },
+                    { time: "13:15–14:20", title: "Recoger Mochilas & Metro", desc: "Regreso al hotel y traslado en Metro a Termini." },
+                    { time: "14:20–14:55", title: "Leonardo Express", desc: "Tren rápido hacia Fiumicino." },
+                    { time: "15:00–17:15", title: "Aeropuerto y Vuelo", desc: "Llegada con margen. Vuelo a Madrid a las 17:15." }
+                ],
+                recs: [
+                    { name: "Osteria da Fortunata ♥", type: "Comida", desc: "Centro · Pasta fresca hecha a mano.", query: "Osteria da Fortunata Roma" },
+                    { name: "Ristorante Navona Notte ♥", type: "Comida", desc: "Zona Navona · Excelente cocina tradicional.", query: "Navona Notte Roma" },
+                    { name: "All'Antico Vinaio ♥", type: "Bocadillos Vuelo", desc: "Via del Corso 510 · Schiacciatas para llevar.", query: "All Antico Vinaio Roma Via del Corso" },
+                    { name: "L'Antico Forno di Trevi ♥", type: "Plan B Bocatas", desc: "Cerca de Trevi · Excelente alternativa para el viaje.", query: "L Antico Forno di Fontana di Trevi" }
+                ]
+            }
+        };
+
+        let activeDay = 'tuesday';
+
+        function switchDay(dayKey) {
+            activeDay = dayKey;
+            
+            // Update Tab styles
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                if(tab.getAttribute('data-day') === dayKey) {
+                    tab.className = "day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md text-center";
+                } else {
+                    tab.className = "day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center";
+                }
+            });
+
+            const data = itineraryData[dayKey];
+            document.getElementById('dayBadge').innerText = data.badge;
+            document.getElementById('dayTitle').innerText = data.title;
+            document.getElementById('dayObjective').innerText = data.objective;
+
+            // Render Timeline
+            const timelineContainer = document.getElementById('timelineContainer');
+            timelineContainer.innerHTML = '';
+            data.steps.forEach(step => {
+                const item = document.createElement('div');
+                item.className = "bg-slate-800/80 border border-slate-700/80 rounded-xl p-3.5 flex flex-col gap-1 shadow-sm";
+                item.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-md text-[11px] font-mono font-bold">
+                            ${step.time}
+                        </span>
+                        <h4 class="font-bold text-white text-sm flex-1">${step.title}</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 pl-1 mt-1 leading-relaxed">${step.desc}</p>
+                `;
+                timelineContainer.appendChild(item);
+            });
+
+            // Render Recommendations
+            const recsContainer = document.getElementById('recommendationsList');
+            recsContainer.innerHTML = '';
+            data.recs.forEach(rec => {
+                const recCard = document.createElement('a');
+                recCard.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rec.query)}`;
+                recCard.target = "_blank";
+                recCard.className = "block bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 rounded-xl p-3.5 transition active:scale-[0.98]";
+                recCard.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-sm text-amber-400 flex items-center gap-1">
+                            ${rec.name}
+                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </span>
+                        <span class="text-[10px] bg-slate-900/80 text-slate-300 border border-slate-700 px-2 py-0.5 rounded-md font-medium">${rec.type}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-snug">${rec.desc}</p>
+                `;
+                recsContainer.appendChild(recCard);
+            });
+        }
+
+        function switchView(view) {
+            const itinView = document.getElementById('itineraryView');
+            const foodView = document.getElementById('foodView');
+            const itinBtn = document.getElementById('viewItineraryBtn');
+            const foodBtn = document.getElementById('viewFoodBtn');
+
+            if(view === 'itinerary') {
+                itinView.classList.remove('hidden');
+                foodView.classList.add('hidden');
+                itinBtn.className = "flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition";
+                foodBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition";
+            } else {
+                itinView.classList.add('hidden');
+                foodView.classList.remove('hidden');
+                foodBtn.className = "flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition";
+                itinBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition";
+            }
+        }
+
+        let qrGenerated = false;
+
+        function openShareModal() {
+            document.getElementById('shareModal').classList.remove('hidden');
+            if (!qrGenerated) {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: window.location.href,
+                    width: 140,
+                    height: 140,
+                    colorDark : "#0f172a",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                qrGenerated = true;
+            }
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.add('hidden');
+        }
+
+        function copyCurrentLink() {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert("¡Enlace copiado al portapapeles! Ya puedes enviarlo por WhatsApp.");
+        }
+
+        window.onload = function() {
+            switchDay('tuesday');
+        };
+    </script>
+</body>
+</html>
