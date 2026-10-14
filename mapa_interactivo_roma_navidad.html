@@ -5,50 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Roma Navidad 2026 · Guía Móvil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            850: '#0f3d47',
+                            950: '#07242b',
+                        },
+                        pistachio: {
+                            300: '#d9f99d',
+                            400: '#a3e635',
+                            500: '#84cc16',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card {
+            background: rgba(15, 61, 71, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+        .glass-nav {
+            background: rgba(7, 36, 43, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(45, 212, 191, 0.25);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-full flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950 pb-16 sm:pb-0">
+<body class="bg-gradient-to-b from-teal-950 via-teal-900 to-slate-950 text-slate-100 min-h-full flex flex-col antialiased selection:bg-pistachio-400 selection:text-teal-950 pb-20 sm:pb-0">
 
-    <!-- Header principal para móviles -->
-    <header class="bg-slate-800/95 backdrop-blur border-b border-slate-700/80 sticky top-0 z-40 shadow-lg">
-        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30">
+    <!-- Header principal en Turquesa Profundo -->
+    <header class="glass-nav sticky top-0 z-40 shadow-xl">
+        <div class="max-w-md mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-2xl bg-teal-800/80 text-pistachio-300 flex items-center justify-center font-bold text-base border border-teal-400/30 shadow-inner">
                     🇮🇹
                 </div>
                 <div>
-                    <h1 class="text-base font-bold bg-gradient-to-r from-amber-400 to-rose-400 bg-clip-text text-transparent">
+                    <h1 class="text-base font-extrabold bg-gradient-to-r from-teal-200 via-cyan-200 to-pistachio-300 bg-clip-text text-transparent">
                         Roma Navidad 2026
                     </h1>
-                    <p class="text-[10px] text-slate-400 font-medium">Hotel Orazio Palace · 3 Viajeras</p>
+                    <p class="text-[11px] text-cyan-200/70 font-medium">Hotel Orazio Palace · 3 Viajeras</p>
                 </div>
             </div>
 
-            <!-- Botón de Compartir / QR -->
-            <button onclick="openShareModal()" class="bg-slate-700 hover:bg-slate-600 active:scale-95 transition text-slate-200 p-2 rounded-xl border border-slate-600 flex items-center gap-1 text-xs font-semibold">
-                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                <span>Compartir</span>
-            </button>
+            <!-- Botones de Acción Superior -->
+            <div class="flex items-center gap-2">
+                <button onclick="openHelpModal()" class="bg-teal-800/60 hover:bg-teal-700/80 text-pistachio-300 px-3 py-1.5 rounded-xl border border-pistachio-400/30 text-xs font-bold transition flex items-center gap-1 shadow-sm">
+                    <span>💡 Guía GitHub</span>
+                </button>
+                <button onclick="openShareModal()" class="bg-teal-800/60 hover:bg-teal-700/80 text-cyan-200 p-2 rounded-xl border border-cyan-500/30 flex items-center justify-center transition shadow-sm">
+                    <svg class="w-4 h-4 text-pistachio-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                </button>
+            </div>
         </div>
 
-        <!-- Horizontal scroll tab bar -->
+        <!-- Pestañas de Días en Pistacho / Turquesa -->
         <div class="px-3 pb-3 pt-1 flex gap-2 overflow-x-auto no-scrollbar scroll-smooth" id="dayTabs">
-            <button onclick="switchDay('tuesday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md text-center" data-day="tuesday">
+            <button onclick="switchDay('tuesday')" class="day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-pistachio-400 to-pistachio-300 text-teal-950 shadow-md shadow-pistachio-500/10 text-center" data-day="tuesday">
                 Martes 22
             </button>
-            <button onclick="switchDay('wednesday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="wednesday">
+            <button onclick="switchDay('wednesday')" class="day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-teal-900/60 text-teal-200 border border-teal-500/30 hover:bg-teal-800/60 text-center" data-day="wednesday">
                 Miércoles 23
             </button>
-            <button onclick="switchDay('thursday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="thursday">
+            <button onclick="switchDay('thursday')" class="day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-teal-900/60 text-teal-200 border border-teal-500/30 hover:bg-teal-800/60 text-center" data-day="thursday">
                 Jueves 24
             </button>
-            <button onclick="switchDay('friday')" class="day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center" data-day="friday">
+            <button onclick="switchDay('friday')" class="day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-teal-900/60 text-teal-200 border border-teal-500/30 hover:bg-teal-800/60 text-center" data-day="friday">
                 Viernes 25
             </button>
         </div>
@@ -56,67 +94,82 @@
 
     <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4">
 
-        <!-- Selector de Vista: Itinerario vs Opciones de Comida -->
-        <div class="bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 flex text-xs font-semibold">
-            <button id="viewItineraryBtn" onclick="switchView('itinerary')" class="flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition">
+        <!-- Selector de Vistas -->
+        <div class="bg-teal-950/70 p-1 rounded-2xl border border-teal-500/30 flex text-xs font-bold shadow-inner">
+            <button id="viewItineraryBtn" onclick="switchView('itinerary')" class="flex-1 py-2 rounded-xl bg-teal-800/90 text-pistachio-300 shadow-md text-center transition border border-pistachio-400/30">
                 ⏱️ Itinerario y Ruta
             </button>
-            <button id="viewFoodBtn" onclick="switchView('food')" class="flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition">
+            <button id="viewFoodBtn" onclick="switchView('food')" class="flex-1 py-2 rounded-xl text-cyan-200/80 hover:text-white text-center transition">
                 🍕 Dónde Comer y Helados
             </button>
         </div>
 
-        <!-- Card Resumen del Día -->
-        <div id="dayHeaderCard" class="bg-gradient-to-br from-slate-800 to-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-lg">
-            <div class="flex items-center justify-between mb-1">
-                <span id="dayBadge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 bg-amber-500/20 text-amber-400 rounded-full border border-amber-500/30">
+        <!-- Tarjeta de Resumen del Día -->
+        <div id="dayHeaderCard" class="glass-card rounded-2xl p-4.5 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-pistachio-400/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-1.5">
+                <span id="dayBadge" class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 bg-pistachio-400/20 text-pistachio-300 rounded-full border border-pistachio-400/40">
                     Llegada y Compras
                 </span>
-                <span class="text-[10px] text-slate-400 font-mono">2026</span>
+                <span class="text-[10px] text-cyan-300/60 font-mono font-semibold">2026</span>
             </div>
-            <h2 id="dayTitle" class="text-lg font-extrabold text-white">MARTES 22 · Llegada, free tour y compras</h2>
-            <p id="dayObjective" class="text-xs text-slate-300 mt-1 leading-relaxed">
+            <h2 id="dayTitle" class="text-base font-extrabold text-white mt-1">MARTES 22 · Llegada, free tour y compras</h2>
+            <p id="dayObjective" class="text-xs text-cyan-100/90 mt-1.5 leading-relaxed">
                 Objetivo: primera toma de contacto, comer sentadas temprano y tarde de compras sin correr.
             </p>
         </div>
 
-        <!-- Contenedor del Itinerario -->
+        <!-- Vista Itinerario -->
         <div id="itineraryView" class="space-y-3">
-            <div id="timelineContainer" class="space-y-3">
-                <!-- Injected via JavaScript -->
-            </div>
+            <div id="timelineContainer" class="space-y-3"></div>
         </div>
 
-        <!-- Contenedor de Comida y Recomendaciones de la Zona -->
+        <!-- Vista Comida -->
         <div id="foodView" class="hidden space-y-3">
-            <div class="bg-slate-800/60 border border-slate-700/70 rounded-2xl p-3.5 text-xs text-slate-300">
-                <span class="font-bold text-amber-400 block mb-1">💡 Consejos para comer:</span>
-                • Los sitios con <span class="text-rose-400 font-bold">♥</span> son vuestros favoritos.<br>
-                • Tocad sobre cualquiera de las recomendaciones para abrir directamente su ruta en Google Maps.
+            <div class="glass-card rounded-2xl p-4 text-xs text-cyan-100/90 shadow-sm border border-teal-400/25">
+                <span class="font-bold text-pistachio-300 block mb-1">💡 Consejos gastronómicos:</span>
+                • Los sitios marcados con <span class="text-rose-400 font-bold">♥</span> son favoritos.<br>
+                • Pulsa en cualquier recomendación para abrir directamente su mapa en Google Maps.
             </div>
-
-            <div id="recommendationsList" class="space-y-3">
-                <!-- Injected via JavaScript -->
-            </div>
+            <div id="recommendationsList" class="space-y-3"></div>
         </div>
 
     </main>
 
-    <!-- Modal para compartir / QR para el móvil -->
-    <div id="shareModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 max-w-xs w-full text-center space-y-4 shadow-2xl">
-            <h3 class="text-base font-bold text-white">¡Llévalo en tu móvil!</h3>
-            <p class="text-xs text-slate-300">Escanea este código QR con la cámara de cualquiera de los teléfonos para abrir el mapa:</p>
-            
-            <div class="bg-white p-3 rounded-xl inline-block mx-auto shadow-inner">
+    <!-- Modal de Ayuda sobre GitHub -->
+    <div id="helpModal" class="fixed inset-0 bg-teal-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card border border-teal-400/40 rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-teal-500/20 pb-3">
+                <h3 class="text-base font-extrabold text-white">¿Cómo actualizarlo en GitHub?</h3>
+                <button onclick="closeHelpModal()" class="text-cyan-200 hover:text-white text-lg font-bold">&times;</button>
+            </div>
+            <p class="text-xs text-cyan-100/90 leading-relaxed">
+                Para guardar estos nuevos colores en tu GitHub:
+            </p>
+            <ol class="text-xs text-cyan-100/90 space-y-2 list-decimal pl-4">
+                <li>Abre el archivo <code class="bg-teal-950/80 px-1.5 py-0.5 rounded text-pistachio-300 border border-teal-500/30">index.html</code> en tu repositorio de GitHub.</li>
+                <li>Haz clic en el icono del **lápiz (Edit)**.</li>
+                <li>Borra todo, pega este nuevo código y pulsa **Commit changes**.</li>
+            </ol>
+            <button onclick="downloadCodeFile()" class="w-full py-2.5 bg-gradient-to-r from-pistachio-400 to-pistachio-300 hover:from-pistachio-300 hover:to-pistachio-400 text-teal-950 font-extrabold text-xs rounded-xl transition shadow-md shadow-pistachio-500/20">
+                📥 Descargar archivo index.html actualizado
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para Compartir -->
+    <div id="shareModal" class="fixed inset-0 bg-teal-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card border border-teal-400/40 rounded-3xl p-5 max-w-xs w-full text-center space-y-4 shadow-2xl">
+            <h3 class="text-base font-extrabold text-white">¡Guía Lista en tu Móvil!</h3>
+            <p class="text-xs text-cyan-100/90">Escanea este código QR desde cualquiera de los teléfonos:</p>
+            <div class="bg-white p-3 rounded-2xl inline-block mx-auto shadow-inner border border-teal-200">
                 <div id="qrcode"></div>
             </div>
-
-            <div class="space-y-2 pt-2">
-                <button onclick="copyCurrentLink()" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition shadow">
+            <div class="space-y-2 pt-1">
+                <button onclick="copyCurrentLink()" class="w-full py-2.5 bg-gradient-to-r from-pistachio-400 to-pistachio-300 hover:from-pistachio-300 hover:to-pistachio-400 text-teal-950 font-extrabold text-xs rounded-xl transition shadow-md shadow-pistachio-500/20">
                     📋 Copiar Enlace Directo
                 </button>
-                <button onclick="closeShareModal()" class="w-full py-2 bg-slate-700 text-slate-300 font-medium text-xs rounded-xl hover:bg-slate-600 transition">
+                <button onclick="closeShareModal()" class="w-full py-2 bg-teal-900/60 text-cyan-200 font-semibold text-xs rounded-xl hover:bg-teal-800/60 transition border border-teal-500/30">
                     Cerrar
                 </button>
             </div>
@@ -221,17 +274,12 @@
             }
         };
 
-        let activeDay = 'tuesday';
-
         function switchDay(dayKey) {
-            activeDay = dayKey;
-            
-            // Update Tab styles
             document.querySelectorAll('.day-tab').forEach(tab => {
                 if(tab.getAttribute('data-day') === dayKey) {
-                    tab.className = "day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md text-center";
+                    tab.className = "day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-pistachio-400 to-pistachio-300 text-teal-950 shadow-md shadow-pistachio-500/10 text-center";
                 } else {
-                    tab.className = "day-tab flex-1 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700/70 text-slate-300 hover:bg-slate-700 text-center";
+                    tab.className = "day-tab flex-1 whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-teal-900/60 text-teal-200 border border-teal-500/30 hover:bg-teal-800/60 text-center";
                 }
             });
 
@@ -240,41 +288,34 @@
             document.getElementById('dayTitle').innerText = data.title;
             document.getElementById('dayObjective').innerText = data.objective;
 
-            // Render Timeline
             const timelineContainer = document.getElementById('timelineContainer');
             timelineContainer.innerHTML = '';
             data.steps.forEach(step => {
                 const item = document.createElement('div');
-                item.className = "bg-slate-800/80 border border-slate-700/80 rounded-xl p-3.5 flex flex-col gap-1 shadow-sm";
+                item.className = "glass-card rounded-2xl p-4 flex flex-col gap-1 shadow-sm border border-teal-400/20";
                 item.innerHTML = `
                     <div class="flex items-center gap-2">
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-md text-[11px] font-mono font-bold">
-                            ${step.time}
-                        </span>
+                        <span class="bg-pistachio-400/15 text-pistachio-300 border border-pistachio-400/30 px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-extrabold">${step.time}</span>
                         <h4 class="font-bold text-white text-sm flex-1">${step.title}</h4>
                     </div>
-                    <p class="text-xs text-slate-300 pl-1 mt-1 leading-relaxed">${step.desc}</p>
+                    <p class="text-xs text-cyan-100/80 pl-1 mt-1.5 leading-relaxed">${step.desc}</p>
                 `;
                 timelineContainer.appendChild(item);
             });
 
-            // Render Recommendations
             const recsContainer = document.getElementById('recommendationsList');
             recsContainer.innerHTML = '';
             data.recs.forEach(rec => {
                 const recCard = document.createElement('a');
                 recCard.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rec.query)}`;
                 recCard.target = "_blank";
-                recCard.className = "block bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 rounded-xl p-3.5 transition active:scale-[0.98]";
+                recCard.className = "block glass-card hover:bg-teal-800/80 rounded-2xl p-4 transition active:scale-[0.98] border border-teal-400/25 shadow-sm";
                 recCard.innerHTML = `
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-amber-400 flex items-center gap-1">
-                            ${rec.name}
-                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </span>
-                        <span class="text-[10px] bg-slate-900/80 text-slate-300 border border-slate-700 px-2 py-0.5 rounded-md font-medium">${rec.type}</span>
+                        <span class="font-extrabold text-sm text-pistachio-300 flex items-center gap-1">${rec.name}</span>
+                        <span class="text-[10px] bg-teal-950/80 text-cyan-200 border border-teal-500/30 px-2.5 py-0.5 rounded-lg font-semibold">${rec.type}</span>
                     </div>
-                    <p class="text-xs text-slate-300 leading-snug">${rec.desc}</p>
+                    <p class="text-xs text-cyan-100/80 leading-snug">${rec.desc}</p>
                 `;
                 recsContainer.appendChild(recCard);
             });
@@ -289,18 +330,17 @@
             if(view === 'itinerary') {
                 itinView.classList.remove('hidden');
                 foodView.classList.add('hidden');
-                itinBtn.className = "flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition";
-                foodBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition";
+                itinBtn.className = "flex-1 py-2 rounded-xl bg-teal-800/90 text-pistachio-300 shadow-md text-center transition border border-pistachio-400/30";
+                foodBtn.className = "flex-1 py-2 rounded-xl text-cyan-200/80 hover:text-white text-center transition";
             } else {
                 itinView.classList.add('hidden');
                 foodView.classList.remove('hidden');
-                foodBtn.className = "flex-1 py-1.5 rounded-lg bg-slate-700 text-amber-400 shadow text-center transition";
-                itinBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 text-center transition";
+                foodBtn.className = "flex-1 py-2 rounded-xl bg-teal-800/90 text-pistachio-300 shadow-md text-center transition border border-pistachio-400/30";
+                itinBtn.className = "flex-1 py-2 rounded-xl text-cyan-200/80 hover:text-white text-center transition";
             }
         }
 
         let qrGenerated = false;
-
         function openShareModal() {
             document.getElementById('shareModal').classList.remove('hidden');
             if (!qrGenerated) {
@@ -308,16 +348,27 @@
                     text: window.location.href,
                     width: 140,
                     height: 140,
-                    colorDark : "#0f172a",
+                    colorDark : "#07242b",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
                 qrGenerated = true;
             }
         }
+        function closeShareModal() { document.getElementById('shareModal').classList.add('hidden'); }
+        function openHelpModal() { document.getElementById('helpModal').classList.remove('hidden'); }
+        function closeHelpModal() { document.getElementById('helpModal').classList.add('hidden'); }
 
-        function closeShareModal() {
-            document.getElementById('shareModal').classList.add('hidden');
+        function downloadCodeFile() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
 
         function copyCurrentLink() {
@@ -327,12 +378,10 @@
             dummy.select();
             document.execCommand('copy');
             document.body.removeChild(dummy);
-            alert("¡Enlace copiado al portapapeles! Ya puedes enviarlo por WhatsApp.");
+            alert("¡Enlace copiado al portapapeles!");
         }
 
-        window.onload = function() {
-            switchDay('tuesday');
-        };
+        window.onload = function() { switchDay('tuesday'); };
     </script>
 </body>
 </html>
